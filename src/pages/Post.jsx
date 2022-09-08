@@ -19,6 +19,7 @@ const Post = () => {
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [info, setInfo] = React.useState(false);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const columns = [
     {
@@ -80,16 +81,15 @@ const Post = () => {
 
   const handleCloseSuccess = () => {
     setSuccess(false);
-  }
+  };
 
   const handleCloseError = () => {
     setError(false);
-  }
+  };
 
   const handleCloseInfo = () => {
     setInfo(false);
-  }
-
+  };
 
   const handleClick = () => {
     if (!title.trim() && !description.trim()) return;
@@ -171,9 +171,11 @@ const Post = () => {
               marginTop: "10px",
               backgroundColor: "white",
             }}
+            pageSize={rowsPerPage}
+            onPageSizeChange={(newPageSize) => setRowsPerPage(newPageSize)}
             rows={rows}
             columns={columns}
-            rowsPerPageOptions={[5]}
+            rowsPerPageOptions={[5, 10, 20, 50, 100]}
           />
         </Box>
       </Stack>
@@ -182,13 +184,25 @@ const Post = () => {
           Post Updated!
         </Alert>
       </Snackbar>
-      <Snackbar open={success} autoHideDuration={3000} onClose={handleCloseSuccess}>
-        <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: "100%" }}>
+      <Snackbar
+        open={success}
+        autoHideDuration={3000}
+        onClose={handleCloseSuccess}
+      >
+        <Alert
+          onClose={handleCloseSuccess}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
           Post Created!
         </Alert>
       </Snackbar>
       <Snackbar open={error} autoHideDuration={3000} onClose={handleCloseError}>
-        <Alert onClose={handleCloseError} severity="error" sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleCloseError}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
           Post Deleted!
         </Alert>
       </Snackbar>
